@@ -33,4 +33,4 @@ jobs:
       - name: Build with Maven
         run: mvn --batch-mode verify
         env:
-          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
