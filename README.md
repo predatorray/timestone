@@ -22,12 +22,12 @@ If you're using Maven, add the following dependency to your `pom.xml`:
 ```xml
 <dependencies>
     <dependency>
-        <groupId>io.github.predatorray.timestone</groupId>
+        <groupId>io.github.predatorray</groupId>
         <artifactId>timestone-api</artifactId>
         <version>${timestone.version}</version>
     </dependency>
     <dependency>
-        <groupId>io.github.predatorray.timestone</groupId>
+        <groupId>io.github.predatorray</groupId>
         <artifactId>timestone-test</artifactId>
         <version>${timestone.version}</version>
         <scope>test</scope>
@@ -38,8 +38,8 @@ If you're using Maven, add the following dependency to your `pom.xml`:
 If you're using Gradle, add the following to your `build.gradle`:
 ```groovy
 dependencies {
-    implementation 'io.github.predatorray.timestone:timestone-api:${timestoneVersion}'
-    testImplementation 'io.github.predatorray.timestone:timestone-test:${timestoneVersion}'
+    implementation 'io.github.predatorray:timestone-api:${timestoneVersion}'
+    testImplementation 'io.github.predatorray:timestone-test:${timestoneVersion}'
 }
 ```
 
