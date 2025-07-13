@@ -28,6 +28,11 @@ jobs:
           echo "$GPG_PRIVATE_KEY" | gpg --batch --import
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+      - name: Set up Maven global settings
+        run: |
+          echo "$MVN_GLOBAL_SETTINGS_XML" > ~/.m2/settings.xml
+        env:
+          MVN_GLOBAL_SETTINGS_XML: ${{ secrets.MVN_GLOBAL_SETTINGS_XML }}
       - name: Get Maven project version
         id: mvn-version
         run: |
@@ -37,5 +42,4 @@ jobs:
         if: endsWith(steps.mvn-version.outputs.version, '-SNAPSHOT')
         run: mvn --batch-mode deploy -DskipTests
         env:
-          MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
