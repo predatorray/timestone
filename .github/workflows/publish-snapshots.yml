@@ -7,6 +7,8 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -15,6 +17,8 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
       - name: Cache Maven packages
         uses: actions/cache@v4
         with:
@@ -23,16 +27,6 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
-      - name: Import GPG key
-        run: |
-          echo "$GPG_PRIVATE_KEY" | gpg --batch --import
-        env:
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-      - name: Set up Maven global settings
-        run: |
-          echo "$MVN_GLOBAL_SETTINGS_XML" > ~/.m2/settings.xml
-        env:
-          MVN_GLOBAL_SETTINGS_XML: ${{ secrets.MVN_GLOBAL_SETTINGS_XML }}
       - name: Get Maven project version
         id: mvn-version
         run: |
@@ -43,3 +37,4 @@ jobs:
         run: mvn --batch-mode deploy -DskipTests
         env:
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          GITHUB_TOKEN: ${{ github.token }}
