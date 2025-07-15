@@ -30,6 +30,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -50,6 +51,8 @@ public class MutableTime extends ClockTime {
     private final AtomicLong currentMillis;
 
     private final ZoneId zoneId;
+
+    private final CopyOnWriteArrayList<MutableTimeListener> listeners = new CopyOnWriteArrayList<>();
 
     public MutableTime() {
         this(System.currentTimeMillis());
@@ -99,13 +102,51 @@ public class MutableTime extends ClockTime {
      * </p>
      *
      * <p>
-     * The {@code duration} can be negative, which will move the time backwards.
+     * The {@code duration} can be negative, which will move the time backwards (rewind).
+     * Listeners will be notified whether the time is advanced or rewound.
      * However, using negative durations is not recommended.
      * </p>
      *
      * @param duration the amount of time to advance; must not be null
      */
     public void advance(Duration duration) {
-        currentMillis.addAndGet(duration.toMillis());
+        long now = currentMillis.addAndGet(duration.toMillis());
+        for (MutableTimeListener listener : listeners) {
+            try {
+                listener.onTimeChanged(now);
+            } catch (Exception ignored) {
+                // Ignore exceptions from listeners to avoid breaking the time advancement
+                // This is a design choice to ensure that one listener's failure does not affect others
+            }
+        }
+    }
+
+    /**
+     * Registers a listener to be notified whenever the time is advanced or rewound.
+     *
+     * <p>
+     * The listener will be notified in a thread-safe manner after each call to {@link #advance(Duration)},
+     * regardless of whether the time moves forward or backward.
+     * If the listener is already registered, it will not be added again.
+     * </p>
+     *
+     * @param listener the listener to register; must not be null
+     */
+    public void addListener(MutableTimeListener listener) {
+        listeners.addIfAbsent(listener);
+    }
+
+    /**
+     * Unregisters a previously registered listener.
+     *
+     * <p>
+     * After removal, the listener will no longer be notified when the time is advanced or rewound.
+     * If the listener was not registered, this method has no effect.
+     * </p>
+     *
+     * @param listener the listener to remove; must not be null
+     */
+    public void removeListener(MutableTimeListener listener) {
+        listeners.remove(listener);
     }
 }

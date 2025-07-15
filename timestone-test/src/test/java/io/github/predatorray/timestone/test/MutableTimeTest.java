@@ -76,6 +76,50 @@ class MutableTimeTest {
     }
 
     @Test
+    void testAdvanceWithListener() {
+        long millis = 1000L;
+        MutableTime mt = new MutableTime(millis);
+        long[] newTimeNotified = new long[1];
+        mt.addListener(newTimeMillis -> newTimeNotified[0] = newTimeMillis);
+        mt.advance(Duration.ofMillis(500));
+        long expectedNewTime = millis + 500;
+        assertEquals(expectedNewTime, mt.instant().toEpochMilli());
+        assertEquals(expectedNewTime, newTimeNotified[0]);
+    }
+
+    @Test
+    void testListenerIsNotNotifiedIfAddedAfterChanges() {
+        long millis = 1000L;
+        MutableTime mt = new MutableTime(millis);
+        mt.advance(Duration.ofMillis(500));
+        long[] newTimeNotified = new long[1];
+        mt.addListener(newTimeMillis -> newTimeNotified[0] = newTimeMillis);
+        assertEquals(millis + 500, mt.instant().toEpochMilli());
+        assertEquals(0, newTimeNotified[0]);
+    }
+
+    @Test
+    void testListenerIsNotNotifiedIfRemoved() {
+        long millis = 1000L;
+        MutableTime mt = new MutableTime(millis);
+        long[] newTimeNotified = new long[1];
+        MutableTimeListener mutableTimeListener = newTimeMillis -> newTimeNotified[0] = newTimeMillis;
+        mt.addListener(mutableTimeListener);
+        mt.removeListener(mutableTimeListener);
+
+        mt.advance(Duration.ofMillis(500));
+        assertEquals(millis + 500, mt.instant().toEpochMilli());
+        assertEquals(0, newTimeNotified[0]);
+    }
+
+    @Test
+    void testRemoveListenerDoesNothingIfNotAdded() {
+        MutableTime mt = new MutableTime();
+        MutableTimeListener listener = newTimeMillis -> {};
+        mt.removeListener(listener); // Should not throw or do anything
+    }
+
+    @Test
     void testSleepAdvancesTime() throws InterruptedException {
         long millis = 2000L;
         MutableTime mt = new MutableTime(millis);
