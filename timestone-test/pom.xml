@@ -33,6 +33,7 @@ SOFTWARE.
     </parent>
 
     <artifactId>timestone-test</artifactId>
+    <name>Timestone Test</name>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
