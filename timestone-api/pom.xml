@@ -33,6 +33,7 @@ SOFTWARE.
     </parent>
 
     <artifactId>timestone-api</artifactId>
+    <name>Timestone API</name>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
