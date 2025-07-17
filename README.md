@@ -1,6 +1,7 @@
 # Timestone
 
 [![License](https://img.shields.io/github/license/predatorray/timestone)][1]
+![Maven Central](https://img.shields.io/maven-central/v/io.github.predatorray/timestone-api)
 ![GitHub release version](https://img.shields.io/github/v/release/predatorray/timestone)
 ![Build Status](https://img.shields.io/github/actions/workflow/status/predatorray/timestone/ci.yml?branch=main)
 
@@ -24,12 +25,12 @@ If you're using Maven, add the following dependency to your `pom.xml`:
     <dependency>
         <groupId>io.github.predatorray</groupId>
         <artifactId>timestone-api</artifactId>
-        <version>${timestone.version}</version>
+        <version>1.0.0</version>
     </dependency>
     <dependency>
         <groupId>io.github.predatorray</groupId>
         <artifactId>timestone-test</artifactId>
-        <version>${timestone.version}</version>
+        <version>1.0.0</version>
         <scope>test</scope>
     </dependency>
 </dependencies>
@@ -38,8 +39,8 @@ If you're using Maven, add the following dependency to your `pom.xml`:
 If you're using Gradle, add the following to your `build.gradle`:
 ```groovy
 dependencies {
-    implementation 'io.github.predatorray:timestone-api:${timestoneVersion}'
-    testImplementation 'io.github.predatorray:timestone-test:${timestoneVersion}'
+    implementation 'io.github.predatorray:timestone-api:1.0.0'
+    testImplementation 'io.github.predatorray:timestone-test:1.0.0'
 }
 ```
 
