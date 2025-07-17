@@ -27,7 +27,7 @@ SOFTWARE.
     <parent>
         <groupId>io.github.predatorray</groupId>
         <artifactId>timestone-parent</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>timestone-api</artifactId>

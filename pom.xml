@@ -27,7 +27,7 @@ SOFTWARE.
 
     <groupId>io.github.predatorray</groupId>
     <artifactId>timestone-parent</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <inceptionYear>2025</inceptionYear>
 
@@ -53,7 +53,7 @@ SOFTWARE.
         <url>https://github.com/predatorray/timestone/tree/main</url>
         <connection>scm:git:https://github.com/predatorray/timestone.git</connection>
         <developerConnection>scm:git:git@github.com:predatorray/timestone.git</developerConnection>
-        <tag>v1.0.0</tag>
+        <tag>main</tag>
     </scm>
 
     <developers>
