@@ -68,9 +68,12 @@ MutableTime testTime = new MutableTime();
 testTime.advance(Duration.ofSeconds(5));
 ```
 
+### More Examples
+For more detailed usage examples, check out the [Timestone Examples][2] repository.
+
 ## License
 
 This project is licensed under the [MIT License][1].
 
 [1]: ./LICENSE
-
+[2]: ./timestone-examples

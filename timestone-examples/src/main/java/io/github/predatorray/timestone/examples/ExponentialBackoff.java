@@ -26,6 +26,11 @@ package io.github.predatorray.timestone.examples;
 
 import io.github.predatorray.timestone.Time;
 
+/**
+ * An implementation of an exponential backoff strategy.
+ * This class provides a way to manage retry delays that increase exponentially
+ * with each failure, up to a maximum delay.
+ */
 public class ExponentialBackoff {
 
     private final Time time;
@@ -50,6 +55,12 @@ public class ExponentialBackoff {
         this.currentDelayMillis = initialDelayMillis;
     }
 
+    /**
+     * Performs the backoff operation, sleeping for the current delay duration
+     * and then increasing the delay for the next call.
+     *
+     * @throws InterruptedException if the thread is interrupted while sleeping
+     */
     public void backoff() throws InterruptedException {
         time.sleep(currentDelayMillis); // Instead of Thread.sleep for testability
         increaseDelay();
