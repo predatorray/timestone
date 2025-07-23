@@ -38,6 +38,7 @@ SOFTWARE.
     <modules>
         <module>timestone-api</module>
         <module>timestone-test</module>
+        <module>timestone-examples</module>
     </modules>
 
     <licenses>
@@ -135,6 +136,11 @@ SOFTWARE.
             <dependency>
                 <groupId>io.github.predatorray</groupId>
                 <artifactId>timestone-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.predatorray</groupId>
+                <artifactId>timestone-test</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
