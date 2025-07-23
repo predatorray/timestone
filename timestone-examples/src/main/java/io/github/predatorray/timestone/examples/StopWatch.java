@@ -29,6 +29,10 @@ import io.github.predatorray.timestone.Time;
 import java.time.Duration;
 import java.time.Instant;
 
+/**
+ * A simple stopwatch implementation that measures elapsed time.
+ * It uses a provided {@link Time} instance to get the current time.
+ */
 public class StopWatch {
 
     private final Time time;
